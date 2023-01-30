@@ -6,4 +6,6 @@ beforeEach(() => {
   notesModel = new NotesModel();
 });
 
-it("getNotes() calls before notes added returns empty array", () => {});
+it("getNotes() calls before notes added returns empty array", () => {
+  expect(notesModel.getNotes()).toStrictEqual([]);
+});
