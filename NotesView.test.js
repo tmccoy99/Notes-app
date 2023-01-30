@@ -10,13 +10,13 @@ let notesModel;
 
 beforeEach(() => {
   document.body.innerHTML = fs.readFileSync("./index.html");
-  notesView = new NotesView();
   notesModel = new NotesModel();
+  notesView = new NotesView(notesModel);
 });
 
 it("displayNotes() methods adds a div for each note", () => {
-  notesModel.add("Mow the lawn");
-  notesModel.add("Feed the cat");
+  notesModel.addNote("Mow the lawn");
+  notesModel.addNote("Feed the cat");
   notesView.displayNotes();
-  expect(document.querySelectorAll("div#note").length).toBe(3);
+  expect(document.querySelectorAll("div.note").length).toBe(2);
 });
