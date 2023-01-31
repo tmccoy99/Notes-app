@@ -1,5 +1,6 @@
 // index.js
-const NotesModel = require("./notesModel");
+const NotesModel = require("./NotesModel");
+const NotesView = require("./NotesView");
 
 const model = new NotesModel();
-console.log(model.getNotes());
+const view = new NotesView(model);
