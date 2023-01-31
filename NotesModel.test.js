@@ -16,6 +16,11 @@ it("addNote(note) can be used to add notes to the model", () => {
   expect(notesModel.getNotes()).toStrictEqual(["Buy milk", "Go to the gym"]);
 });
 
+it("setNotes(notes) sets notes to the given array argument", () => {
+  notesModel.setNotes(["Buy milk", "Go to the gym"]);
+  expect(notesModel.getNotes()).toStrictEqual(["Buy milk", "Go to the gym"]);
+});
+
 it("reset() deletes all saved notes", () => {
   notesModel.addNote("Buy milk");
   notesModel.addNote("Go to the gym");
