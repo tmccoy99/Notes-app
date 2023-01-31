@@ -23,6 +23,13 @@ class NotesView {
       document.querySelector("body").append(div);
     });
   }
+
+  async displayNotesFromApi() {
+    this.client.loadNotes((notes) => {
+      this.model.setNotes(notes);
+      this.displayNotes();
+    });
+  }
 }
 
 module.exports = NotesView;

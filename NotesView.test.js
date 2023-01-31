@@ -2,16 +2,22 @@
  * @jest-environment jsdom
  */
 const fs = require("fs");
+require("jest-fetch-mock").enableMocks();
 const NotesView = require("./NotesView");
 const NotesModel = require("./NotesModel");
+const { default: JSDOMEnvironment } = require("jest-environment-jsdom");
 
 let notesView;
 let notesModel;
+let mockClient;
 
 beforeEach(() => {
   document.body.innerHTML = fs.readFileSync("./index.html");
   notesModel = new NotesModel();
-  notesView = new NotesView(notesModel);
+  mockClient = {
+    loadNotes: jest.fn(),
+  };
+  notesView = new NotesView(notesModel, mockClient);
 });
 
 it("displayNotes() methods adds a div for each note", () => {
@@ -46,4 +52,16 @@ it("displayNotes() can be called twice and still have the correct number of note
   buttonEl.click();
   notes = document.querySelectorAll("div.note");
   expect(notes.length).toBe(2);
+});
+
+it("displayNotesFromApi loads notes from server and displays the received notes", (done) => {
+  mockClient.loadNotes.mockImplementation((callback) => {
+    callback(["Feed lawn", "Mow dog"]);
+  });
+  notesView.displayNotesFromApi().then(() => {
+    const notes = document.querySelectorAll("div.note");
+    expect(notes.length).toBe(2);
+    expect(notes[0].textContent).toBe("Feed lawn");
+    done();
+  });
 });
