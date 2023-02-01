@@ -30,6 +30,13 @@ class NotesView {
       this.displayNotes();
     });
   }
+
+  displayError() {
+    const errorEl = document.createElement("div");
+    errorEl.textContent = "Oops, something went wrong";
+    errorEl.id = "error-message";
+    document.querySelector("#main_container").append(errorEl);
+  }
 }
 
 module.exports = NotesView;

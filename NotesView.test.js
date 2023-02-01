@@ -65,3 +65,10 @@ it("displayNotesFromApi loads notes from server and displays the received notes"
     done();
   });
 });
+
+it("displayError() adds error message to the page", () => {
+  notesView.displayError();
+  errorEl = document.querySelector("#error-message");
+  expect(errorEl).not.toBeNull();
+  expect(errorEl.textContent).toBe("Oops, something went wrong");
+});
